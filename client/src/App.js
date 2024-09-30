@@ -4,24 +4,24 @@ import io from 'socket.io-client';
 const socket = io('http://localhost:5000');
 
 function App() {
-  const [notification, setNotification] = useState([]);
+  const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    socket.on('pushNotification', (data) => {
+    socket.on('pushNotifications', (data) => {
       console.log('Received', data);
-      setNotification((prev) => [...prev, data]);
+      setNotifications((prev) => [...prev, data]);
     });
 
     return () => {
-      socket.off('pushNotification');
+      socket.off('pushNotifications');
     };
   }, []);
 
   return (
     <div>
-      <h1>Push Notification</h1>
+      <h1>Push Notifications</h1>
       <ul>
-        {notification?.map((notif, index) => (
+        {notifications?.map((notif, index) => (
           <li style={{ color: 'red' }} key={index}>
             notif : {notif.message}
           </li>
