@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:5000');
 
 function App() {
+  const [notification, setNotification] = useState([]);
+
+  useEffect(() => {
+    socket.on('pushNotification', (data) => {
+      console.log('Received', data);
+      setNotification((prev) => [...prev, data]);
+    });
+
+    return () => {
+      socket.off('pushNotification');
+    };
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Push Notification</h1>
+      <ul>
+        {notification?.map((notif, index) => (
+          <li style={{ color: 'red' }} key={index}>
+            notif : {notif.message}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
