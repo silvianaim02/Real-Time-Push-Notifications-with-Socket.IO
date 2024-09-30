@@ -7,13 +7,13 @@ function App() {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    socket.on('pushNotifications', (data) => {
+    socket.on('pushNotification', (data) => {
       console.log('Received', data);
       setNotifications((prev) => [...prev, data]);
     });
 
     return () => {
-      socket.off('pushNotifications');
+      socket.off('pushNotification');
     };
   }, []);
 
