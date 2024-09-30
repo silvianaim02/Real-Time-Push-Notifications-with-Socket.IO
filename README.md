@@ -42,3 +42,8 @@ Server akan mengembalikan response sesuai dengan implementasi API, misalnya:
 
 - **200 OK**: Jika pesan berhasil diterima.
 - **400 Bad Request**: Jika format request salah.
+
+**Contoh ketika api http://localhost:5000/send di atas di hit **:
+
+  ![image](https://github.com/user-attachments/assets/3db9a850-12a4-4ed8-8d7a-603357f23962)
+
